@@ -1,0 +1,38 @@
+# define parameters for calibration and identification process
+# robot: Kinova Gen3
+---
+identification:
+  robot_params:
+    - q_lim_def: 1.57 
+      dq_lim_def : 5.0 
+      ddq_lim_def : 20.0
+      tau_lim_def : 4.0
+      fv : [0,0,0,0,0,0,0]
+      fs : [0,0,0,0,0,0,0]
+      Ia : None
+      offset : None
+      Iam6 : None
+      fvm6 : None
+      fsm6 : None
+      N : None
+      ratio_essential : None
+  problem_params:
+    - is_external_wrench : False
+      is_joint_torques : True
+      force_torque : ['All']
+      external_wrench_offsets : False
+      has_friction : True
+      has_joint_offset : False
+      has_actuator_inertia : False
+      is_static_regressor : True
+      is_inertia_regressor : True
+      has_coupled_wrist : False
+      embedded_forces : False
+  processing_params:
+    - cut_off_frequency_butterworth: 100.0
+      ts : 0.001
+  tls_params:
+    - mass_load : 0.0 #1.3612
+      which_body_loaded : 0 #5
+      sync_joint_motion : False 
+...
