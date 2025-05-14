@@ -110,7 +110,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/base_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/base_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -119,20 +119,20 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/base_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
   <link name="shoulder_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="-2.2999999817036957e-05 -0.010363999997891211 -0.0467258461106393" />
-      <mass value="1.3772999720609305" />
-      <inertia ixx="0.00610136177972257" ixy="0.000592361582263493" ixz="0.00035038237919736144" iyy="0.004779715048166523" iyz="0.0004567196047954148" izz="0.004456335040930545" />
+      <origin rpy="0 0 0" xyz="-0.01345464142810788 -0.074626322574951 -0.036649261268846975" />
+      <mass value="1.1746490194847434" />
+      <inertia ixx="0.001766216280525824" ixy="0.0016309870324765347" ixz="0.0009900638522322078" iyy="0.006919606874451414" iyz="0.002876302188960778" izz="-0.008494460272016741" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/shoulder_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/shoulder_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -141,7 +141,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/shoulder_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/shoulder_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -154,14 +154,14 @@
   </joint>
   <link name="half_arm_1_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="-4.39999999999671e-05 -0.09957999999991558 -0.013277999473505662" />
-      <mass value="1.163600000000146" />
-      <inertia ixx="0.009156355697481078" ixy="4.99999999981809e-06" ixz="-2.6903552479644983e-14" iyy="-0.0019753350188693093" iyz="-0.0006909955971636926" izz="0.012370690716353666" />
+      <origin rpy="0 0 0" xyz="-5.018101325169208e-05 -0.03756961297046211 0.07267846805971422" />
+      <mass value="1.031384648109728" />
+      <inertia ixx="0.0021076602264419953" ixy="5.224580755032068e-06" ixz="-5.524795681160264e-06" iyy="2.06470879900722e-05" iyz="-0.004540425322001923" izz="0.0032715680074172056" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/half_arm_1_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/half_arm_1_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -170,7 +170,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/half_arm_1_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/half_arm_1_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -183,14 +183,14 @@
   </joint>
   <link name="half_arm_2_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="-4.400000000002143e-05 -0.006641000000111226 -0.11789198989729242" />
-      <mass value="1.1635999999998636" />
-      <inertia ixx="0.008951114660777117" ixy="-1.1176282101665273e-17" ixz="-7.000000517239044e-06" iyy="0.010011312055387661" iyz="0.0006060033819366704" izz="0.00017780260539024327" />
+      <origin rpy="0 0 0" xyz="-4.712694538493632e-05 -0.006329889943202162 -0.05189640605740142" />
+      <mass value="1.0814845354604532" />
+      <inertia ixx="0.008971779746109769" ixy="3.4678758721386717e-07" ixz="-1.0253362232578264e-05" iyy="0.006328773823739085" iyz="0.00022871611205851672" izz="0.0038657929458432248" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/half_arm_2_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/half_arm_2_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -199,7 +199,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/half_arm_2_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/half_arm_2_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -212,14 +212,14 @@
   </joint>
   <link name="forearm_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="-1.7999999459491394e-05 -0.07547800000066411 -0.01500599935799338" />
-      <mass value="0.9302000279332294" />
-      <inertia ixx="0.006832816264844186" ixy="-1.0000000000789513e-06" ixz="-1.073396197306511e-14" iyy="0.001496197407365227" iyz="-0.0005000087444667148" izz="0.00613661885748014" />
+      <origin rpy="0 0 0" xyz="-1.6202892731211687e-05 -0.018754215330837577 -0.008215315398802584" />
+      <mass value="0.994092576307687" />
+      <inertia ixx="0.005663128209520809" ixy="-6.280319246288048e-07" ixz="-6.504655280491237e-07" iyy="-0.0020359114752697863" iyz="-0.0010754780009780054" izz="0.00848107224824423" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/forearm_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/forearm_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -228,7 +228,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/forearm_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/forearm_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -241,14 +241,14 @@
   </joint>
   <link name="spherical_wrist_1_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="1.0000000000044846e-06 -0.009432000000096629 -0.06388299688747348" />
-      <mass value="0.6781000000057769" />
-      <inertia ixx="0.0034924724506795782" ixy="-2.2515095267529865e-18" ixz="2.123616207335517e-15" iyy="0.003786382132324823" iyz="0.00025600249667750313" izz="0.0001160903183553003" />
+      <origin rpy="0 0 0" xyz="6.45250108019768e-07 -0.005576665236612655 0.003780745708449326" />
+      <mass value="0.8016193244823407" />
+      <inertia ixx="0.0016942475092427314" ixy="1.1327108465845678e-07" ixz="-3.6212132002885215e-07" iyy="0.00039106745055575616" iyz="3.123202852836256e-05" izz="0.0017050143548163693" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_1_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/spherical_wrist_1_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -257,7 +257,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_1_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/spherical_wrist_1_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -270,14 +270,14 @@
   </joint>
   <link name="spherical_wrist_2_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="9.999999999972602e-07 -0.050303095562261126 -0.009649980719645235" />
-      <mass value="0.6781000000001965" />
-      <inertia ixx="0.0029903284287793523" ixy="-3.2685067893996103e-09" ixz="1.3075057137119253e-14" iyy="0.0006929099385470021" iyz="-0.0002470288073735546" izz="0.00270741849175409" />
+      <origin rpy="0 0 0" xyz="1.0097206979503346e-06 -0.0344651405995989 -0.0057030158355859525" />
+      <mass value="0.7992224156855354" />
+      <inertia ixx="0.0022357854742970015" ixy="-4.58167197476792e-07" ixz="-1.955549560927486e-08" iyy="-0.000821396659968852" iyz="-0.0004188761074648455" izz="0.003471017927597143" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_2_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/spherical_wrist_2_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -286,7 +286,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_2_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/spherical_wrist_2_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -299,14 +299,14 @@
   </joint>
   <link name="bracelet_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.00015355058155742455 -0.0001683538815328051 -0.06062232713937338" />
-      <mass value="0.7228423358458282" />
-      <inertia ixx="0.0013889978704632782" ixy="-5.531781748203646e-08" ixz="7.767737212833906e-06" iyy="0.001408092604550975" iyz="-1.032006895338809e-05" izz="0.00045909282006261257" />
+      <origin rpy="0 0 0" xyz="0.0001337068213806595 -0.00014676121736605948 -0.04679670652203298" />
+      <mass value="0.8313621489393325" />
+      <inertia ixx="0.002052208832989246" ixy="2.205603796144553e-07" ixz="9.826334509636378e-06" iyy="0.0020683374807878847" iyz="-1.3485973882290528e-05" izz="0.00045574041459895456" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/bracelet_no_vision_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/bracelet_no_vision_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -315,7 +315,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/catkin_data_ws/install/share/kortex_description/arms/gen3/7dof/meshes/bracelet_no_vision_link.dae" />
+        <mesh filename="/home/yurong/figaroh/models/others/robots/kinova_gen3/gen3/7dof/meshes/bracelet_no_vision_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -349,7 +349,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <mesh filename="package://rokubimini_description/meshes/BFT_SENS_M8/mounting.STL" />
+        
       </geometry>
       <material name="">
         <color rgba="0.6902 0.61176 0.52941 1" />
@@ -433,7 +433,7 @@
     <visual name="adapter">
       <origin rpy="0 0 0" xyz="0 0 0.0" />
       <geometry>
-        <mesh filename="file:///home/bastienm/workspace/src/mc_kinova/meshes/force_sensor/adapter.STL" scale="0.001 0.001 0.001" />
+        
       </geometry>
       <material name="">
         <color rgba="0.6902 0.61176 0.52941 1" />

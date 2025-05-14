@@ -264,6 +264,8 @@ for ii in range(len(stdev)):
 
 #############################################################
 
+###########################################################
+
 # QP Optimization
 
 keys_template = ['Ixx', 'Ixy', 'Ixz', 'Iyy', 'Iyz', 'Izz', 'mx', 'my', 'mz', 'm', 'fv', 'fs']
@@ -301,7 +303,7 @@ H = W_qp.T @ W_qp  # Quadratic term
 c = -W_qp.T @ Y    # Linear term
 
 # Objective function
-def objective(Phi, alpha=1000):
+def objective(Phi, alpha=1.1428):
     qp_term = (0.5 * Phi.T @ H @ Phi + c.T @ Phi) / (params_settings["nb_samples"] * model.nq)
     phi_diff_term = alpha * np.sum((phi_urdf - Phi)**2)
     return qp_term + phi_diff_term
@@ -382,41 +384,39 @@ def compute_joint_com_constraints(robot_urdf_path, margin=0.00):
 #     5: {'x': (-0.0544, 0.0544), 'y': (-0.0544, 0.136), 'z': (-0.2514, 0.0)}
 # }
 
-COM_constraints = compute_joint_com_constraints(robot_urdf_path)
-print(f"COM constraints: {COM_constraints}")
+COM_constraints = compute_joint_com_constraints(robot_urdf_path,margin=0.01)
 
-# Constraint 3: Enforce COM limits using a linearized approximation
 def center_of_mass_constraint(Phi):
     """
-    For each link, apply a first-order Taylor expansion to approximate the nonlinear COM equation:
-        COM = mx / m
-    Linearized form:
-        f_lin = (mx0/m0) + (1/m0) * (mx - mx0) - (mx0/m0^2) * (m - m0)
+    For each link, enforce COM limits by directly calculating COM = mx/m, my/m, mz/m
+    Returns inequality constraints in the form g(x) >= 0
     """
     constraints = []
+    
     for i in range(model.nq):
         base = i * 12
-
-        # Extract reference values (Taylor expansion point)
-        mx0, my0, mz0, m0 = phi_urdf[base + 6 : base + 10]
-        if m0 == 0:
-            raise ValueError(f"Linearization point mass m0 for link {i} cannot be 0")
-
-        # Current variables
-        mx, my, mz, m = Phi[base + 6 : base + 10]
-
-        # Compute linear approximation
-        f_lin_x = (mx0 / m0) + (1.0 / m0) * (mx - mx0) - (mx0 / m0**2) * (m - m0)
-        f_lin_y = (my0 / m0) + (1.0 / m0) * (my - my0) - (my0 / m0**2) * (m - m0)
-        f_lin_z = (mz0 / m0) + (1.0 / m0) * (mz - mz0) - (mz0 / m0**2) * (m - m0)
-
-        # Apply scaled COM limits
-        for axis, f_lin in zip(['x', 'y', 'z'], [f_lin_x, f_lin_y, f_lin_z]):
-            lower, upper = [3 * v for v in COM_constraints[i][axis]]
-            constraints.append(f_lin - lower)   # f_lin ≥ lower
-            constraints.append(upper - f_lin)   # f_lin ≤ upper
-
-    return np.array(constraints)
+        
+        # Current variables (mass first derivatives)
+        mx, my, mz, m = Phi[base + 6:base + 10]
+        
+        # Only calculate COM if mass is positive
+        if m > 1e-6:
+            com_x = mx / m
+            com_y = my / m
+            com_z = mz / m
+            
+            # Get COM bounds for this link
+            for axis, com_val in zip(['x', 'y', 'z'], [com_x, com_y, com_z]):
+                if i in COM_constraints and axis in COM_constraints[i]:
+                    lower, upper = COM_constraints[i][axis]
+                    constraints.append(com_val - lower)  # com_val >= lower
+                    constraints.append(upper - com_val)  # com_val <= upper
+    
+    # Ensure non-empty return
+    if not constraints:
+        constraints = [1.0]  # Always satisfied dummy constraint
+        
+    return np.array(constraints, dtype=np.float64)
 
 constr3 = {'type': 'ineq', 'fun': center_of_mass_constraint}
 
@@ -435,11 +435,88 @@ print(f"Total mass from URDF: {mass}")
 # Constraint 4: Ensure total mass equals 3.42405
 def total_mass_constraint(Phi):
     return np.sum(Phi[9::12]) - mass  # Sum of all mass terms
-
 constr4 = {'type': 'eq', 'fun': total_mass_constraint}
 
 # Combine all constraints
 constraints = [constr1, constr2, constr3, constr4]
+
+
+from scipy.optimize import LinearConstraint, NonlinearConstraint
+
+# Extract indices for mass terms
+mass_indices = np.array([9 + 12*i for i in range(model.nq)])
+
+# Define linear constraints
+# 1. Mass terms must be positive (handled through bounds)
+# 2. Linear equality constraints from params_base
+linear_constraint = LinearConstraint(A_auto, b_auto, b_auto)
+
+# 3. Total mass constraint
+mass_selector = np.zeros(n_phi)
+mass_selector[mass_indices] = 1.0
+total_mass_constraint_linear = LinearConstraint(mass_selector, mass, mass)
+
+# Define COM nonlinear constraint
+def com_constraint_func(Phi):
+    """Calculate all COM values as a vector"""
+    results = []
+    for i in range(model.nq):
+        base = i * 12
+        mx, my, mz, m = Phi[base + 6:base + 10]
+        
+        # Calculate COMs
+        if m > 1e-6:
+            com_x = mx / m
+            com_y = my / m
+            com_z = mz / m
+        else:
+            # Default to zero if mass is too small
+            com_x, com_y, com_z = 0, 0, 0
+            
+        results.extend([com_x, com_y, com_z])
+    
+    return np.array(results)
+
+# Prepare bounds for the COM nonlinear constraint
+lower_bounds = []
+upper_bounds = []
+for i in range(model.nq):
+    for axis in ['x', 'y', 'z']:
+        if i in COM_constraints and axis in COM_constraints[i]:
+            lower, upper = COM_constraints[i][axis]
+            lower_bounds.append(lower)
+            upper_bounds.append(upper)
+        else:
+            # Default bounds if not specified
+            lower_bounds.append(-np.inf)
+            upper_bounds.append(np.inf)
+
+# Create the nonlinear constraint
+com_constraint = NonlinearConstraint(com_constraint_func, 
+                                    lower_bounds, 
+                                    upper_bounds)
+
+# Create bounds to ensure masses are positive
+bounds = [(None, None)] * n_phi
+for i in mass_indices:
+    bounds[i] = (1e-6, None)  # Mass lower bound is 1e-6
+
+# Alternative constraints setup
+alt_constraints = [linear_constraint, total_mass_constraint_linear,com_constraint]
+
+# Function to run the optimization with the alternative approach
+def run_optimization_with_alt_constraints(alpha):
+    result = minimize(
+        lambda Phi: objective(Phi, alpha=alpha), 
+        Phi0, 
+        method='SLSQP',
+        constraints=alt_constraints,
+        bounds=bounds,
+        options={'maxiter': 1000, 'ftol': 1e-6, 'disp': True}
+    )
+    return result
+
+
 
 # Initial estimate (72-dimensional vector)
 Phi0 = phi_urdf  
@@ -453,8 +530,10 @@ phi_opts = []  # Store optimized Phi values
 tradeoff_values = []  # Store trade-off values
 
 # Iterate over different alpha values and optimize the objective function
+# for a in alphas:
+#     res = minimize(lambda Phi: objective(Phi, alpha=a), Phi0, method='SLSQP', constraints=alt_constraints, bounds=bounds)
 for a in alphas:
-    res = minimize(lambda Phi: objective(Phi, alpha=a), Phi0, method='SLSQP', constraints=constraints)
+    res = run_optimization_with_alt_constraints(a)
     phi_opt_a = res.x
     
     # Compute QP term and phi difference term
@@ -492,7 +571,7 @@ plt.grid(True)
 plt.show()
 
 # Solve QP again using the optimal alpha
-result = minimize(lambda Phi: objective(Phi, alpha=best_alpha), Phi0, method='SLSQP', constraints=constraints)
+result = run_optimization_with_alt_constraints(best_alpha)
 
 # Optimal Phi (reshaped as a column vector)
 Phi_opt = result.x.reshape(-1, 1)
@@ -506,13 +585,14 @@ W_filtered = W[:, indices_to_extract]
 tau_pq = W_filtered @ Phi_opt
 
 # Plot tau results from different methods
-plt.title('Torque Comparison')
 plt.plot(tau_identif, label='Identified')
 plt.plot(tau_pq, label='QP')
 plt.xlabel('Samples')
 plt.ylabel('Torque(Nm)')
 plt.legend()
 plt.show()
+
+
 
 
 #############################################################
